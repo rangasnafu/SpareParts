@@ -107,15 +107,22 @@ public class PlayerController : MonoBehaviour
         //instantiate means to spawn, quaternion means rotation
     }
 
-    private int parts;
+    private int eyeparts;
+    private int coreparts;
 
     private void OnTriggerEnter2D(Collider2D collision)
     {
-        if (collision.CompareTag("Part"))
+        if (collision.CompareTag("Eye"))
         {
-            parts += 1; // Increment the parts by 1
+            eyeparts += 1; // Increment the parts by 1
             Destroy(collision.gameObject); // Destroy the part prefab
             UpdatePartsUI(); // Update the parts UI display
+        }
+        if (collision.CompareTag("Core"))
+        {
+            coreparts += 1;
+            Destroy(collision.gameObject);
+            UpdatePartsUI();
         }
         else if (collision.CompareTag("Merchant"))
         {
@@ -135,9 +142,11 @@ public class PlayerController : MonoBehaviour
     {
         if (partsUI != null)
         {
-            partsUI.UpdateMoneyDisplay(parts * 4); // Set the money value in the UI
+            partsUI.UpdateMoneyDisplay(eyeparts * 4); // Set the money value in the UI
+            partsUI.UpdateMoneyDisplay(coreparts * 6);
         }
-        parts = 0; // Set the parts value to 0
+        eyeparts = 0; // Set the parts value to 0
+        coreparts = 0;
         UpdatePartsUI(); // Update the parts UI display
         isInteracting = false; // Reset the interaction flag
     }
@@ -147,7 +156,8 @@ public class PlayerController : MonoBehaviour
         Parts partsUI = FindObjectOfType<Parts>();
         if (partsUI != null)
         {
-            partsUI.UpdatePartsDisplay(parts); 
+            partsUI.UpdateEyesDisplay(eyeparts); 
+            partsUI.UpdateCoreDisplay(coreparts);
         }
     }
 }
