@@ -133,14 +133,13 @@ public class PlayerController : MonoBehaviour
 
     private void ResetParts()
     {
+        if (partsUI != null)
+        {
+            partsUI.UpdateMoneyDisplay(parts * 4); // Set the money value in the UI
+        }
         parts = 0; // Set the parts value to 0
         UpdatePartsUI(); // Update the parts UI display
         isInteracting = false; // Reset the interaction flag
-
-        if (partsUI != null)
-        {
-            partsUI.UpdateMoneyDisplay(30); // Set the money value to 30 in the UI
-        }
     }
 
     private void UpdatePartsUI()
