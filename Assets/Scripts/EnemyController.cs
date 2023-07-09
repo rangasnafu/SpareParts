@@ -46,7 +46,7 @@ public class EnemyController : MonoBehaviour
         //}
     }
 
-    private void OnCollisionEnter2D(Collision2D collision)
+    private void OnTriggerEnter2D(Collider2D collision)
     {
         if (collision.gameObject.CompareTag("Fireball"))
         {
@@ -55,6 +55,9 @@ public class EnemyController : MonoBehaviour
 
             // Destroy the enemy
             Destroy(gameObject);
+
+            // Destroy the bullet
+            Destroy(collision.gameObject);
         }
     }
 }
