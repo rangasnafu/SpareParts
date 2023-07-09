@@ -4,8 +4,9 @@ using UnityEngine;
 
 public class PlayerController : MonoBehaviour
 {
-   private float horizontal;
+    private float horizontal;
     public float speed = 8f;
+    public float acceleration = 0.1f;
     public float jumpingPower = 16f;
 
     public bool isFacingRight = true;
@@ -40,8 +41,11 @@ public class PlayerController : MonoBehaviour
         if (Input.GetButtonDown("Jump") && IsGrounded())
         {
             rb.velocity = new Vector2(rb.velocity.x, jumpingPower);
-
-            
+            // clamp max negative velocity to -jumpingPower
+            if (rb.velocity.y < -jumpingPower)
+            {
+                rb.velocity = new Vector2(rb.velocity.x, -jumpingPower);
+            }
         }
 
         if (Input.GetButtonUp("Jump") && rb.velocity.y > 0f)
@@ -71,7 +75,35 @@ public class PlayerController : MonoBehaviour
 
     private void FixedUpdate()
     {
-        rb.velocity = new Vector2(horizontal * speed, rb.velocity.y);
+        acceleration = Mathf.Clamp(acceleration, 0f, 1f);
+        if (horizontal == 0)
+        {
+            // decelerate
+            if (IsGrounded())
+            {
+                acceleration = Mathf.Lerp(acceleration, 0f, 0.2f);
+            }
+            else
+            {
+                // drag
+                acceleration = Mathf.Lerp(acceleration, 0f, 0.04f);
+            }
+            // if sprite flipped
+            if (isFacingRight)
+            {
+                rb.velocity = new Vector2(speed * acceleration, rb.velocity.y);
+            }
+            else
+            {
+                rb.velocity = new Vector2(-speed * acceleration, rb.velocity.y);
+            }
+        }
+        else
+        {
+            acceleration += 0.1f;
+            // Move the player horizontally based on input
+            rb.velocity = new Vector2(horizontal * speed * acceleration, rb.velocity.y);
+        }
     }
 
     private bool IsGrounded()
