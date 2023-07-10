@@ -7,16 +7,18 @@ public class MoveFireball : MonoBehaviour
 {
     public Vector2 movementSpeed;
     [SerializeField] private Rigidbody2D rb;
+    [SerializeField] private SpriteRenderer spriteRenderer;
 
     // Start is called before the first frame update
     void Start()
     {
         GameObject playerObject = GameObject.Find("Player");
-        rb.AddForce(movementSpeed);
         if (playerObject.TryGetComponent<PlayerController>(out var playerController))
         {
             movementSpeed = playerController.isFacingRight ? movementSpeed : -movementSpeed;
+            spriteRenderer.flipX = !playerController.isFacingRight;
         }
+        rb.AddForce(movementSpeed);
         // assuming isFacingRight is true but if not, negative movementSpeed (: is short hand if)
     }
 
