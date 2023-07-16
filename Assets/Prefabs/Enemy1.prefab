@@ -226,6 +226,7 @@ MonoBehaviour:
     serializedVersion: 2
     m_Bits: 8
   partPrefab: {fileID: 2261339350843302463, guid: 030c8a17340af494684aa40d1a60cff1, type: 3}
+  explosionEffect: {fileID: 1867168237438559539, guid: b993b1f4281fb7f43b79127b054e17c2, type: 3}
 --- !u!50 &5597934034941435573
 Rigidbody2D:
   serializedVersion: 4

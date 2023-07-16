@@ -23,6 +23,8 @@ public class EnemyController : MonoBehaviour
 
     public GameObject partPrefab;
 
+    public GameObject explosionEffect;
+
     private void Start()
     {
         startingPosition = transform.position;
@@ -56,6 +58,7 @@ public class EnemyController : MonoBehaviour
         {
             // Spawn the part prefab at the enemy's position
             Instantiate(partPrefab, transform.position, Quaternion.identity);
+            Instantiate(explosionEffect, transform.position, Quaternion.identity);
 
             // Destroy the enemy
             Destroy(gameObject);
