@@ -29,11 +29,15 @@ public class PlayerController : MonoBehaviour
     private Parts partsUI;
     private UpgradeMenuManager upgradeMenuManager;
 
+    public GameObject shopPromptText;
+    public GameObject fireTutorial;
+
     // Start is called before the first frame update
     private void Start()
     {
         partsUI = FindObjectOfType<Parts>();
         upgradeMenuManager = FindObjectOfType<UpgradeMenuManager>();
+        shopPromptText.SetActive(false);
     }
 
     // Update is called once per frame
@@ -149,6 +153,10 @@ public class PlayerController : MonoBehaviour
     {
         Instantiate(fireballPrefab, fireballSpawnPoint.position, Quaternion.identity);
         //instantiate means to spawn, quaternion means rotation
+        if (fireTutorial != null)
+        {
+            Destroy(fireTutorial);
+        }
     }
 
     private int eyeparts;
@@ -171,6 +179,7 @@ public class PlayerController : MonoBehaviour
         if (collision.CompareTag("Merchant"))
         {
             canInteract = true;
+            shopPromptText.SetActive(true);
         }
 
         if (collision.gameObject.CompareTag("SideCollision"))
@@ -196,6 +205,7 @@ public class PlayerController : MonoBehaviour
         if (collision.CompareTag("Merchant"))
         {
             canInteract = false;
+            shopPromptText.SetActive(false);
         }
     }
 
