@@ -174,8 +174,7 @@ public class PlayerController : MonoBehaviour
     {
         if (partsUI != null)
         {
-            partsUI.UpdateMoneyDisplay(eyeparts * 4); // Set the money value in the UI
-            partsUI.UpdateMoneyDisplay(coreparts * 6);
+            partsUI.CashOutParts(eyeparts, coreparts);
         }
         eyeparts = 0; // Set the parts value to 0
         coreparts = 0;
