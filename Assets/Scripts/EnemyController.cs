@@ -35,14 +35,14 @@ public class EnemyController : MonoBehaviour
         transform.Translate(Vector2.right * direction * moveSpeed * Time.deltaTime);
 
         RaycastHit2D hit = Physics2D.Raycast(transform.position, Vector2.down, 1.0f);
-        if (hit.collider == null)
-        {
-            isAtEdge = true;
-        }
-        else
-        {
-            isAtEdge = false;
-        }
+        //if (hit.collider == null)
+        //{
+        //    isAtEdge = true;
+        //}
+        //else
+        //{
+        //    isAtEdge = false;
+        //}
 
         if (Mathf.Abs(transform.position.x - startingPosition.x) >= moveDistance || isAtEdge)
         {
