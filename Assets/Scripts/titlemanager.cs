@@ -9,4 +9,9 @@ public class TitleManager : MonoBehaviour
     {
         SceneManager.LoadScene("SampleScene");
     }
+
+    public void LoadTutorial()
+    {
+        SceneManager.LoadScene("Tutorial");
+    }
 }
