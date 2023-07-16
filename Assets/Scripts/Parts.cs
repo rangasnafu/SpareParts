@@ -9,7 +9,7 @@ public class Parts : MonoBehaviour
     public TextMeshProUGUI corepartsText;
     public TextMeshProUGUI moneyText;
 
-    private int moneyValue = 0;
+    public int moneyValue = 0;
 
     public void UpdateEyesDisplay(int eyepartsValue)
     {
@@ -25,5 +25,12 @@ public class Parts : MonoBehaviour
     {
         moneyValue = newMoneyValue;
         moneyText.text = "$: " + moneyValue.ToString();
+    }
+
+    public void CashOutParts(int eyepartsValue, int corepartsValue)
+    {
+        moneyValue += eyepartsValue * 10;
+        moneyValue += corepartsValue * 20;
+        UpdateMoneyDisplay(moneyValue);
     }
 }

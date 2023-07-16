@@ -147,17 +147,17 @@ public class PlayerController : MonoBehaviour
     {
         if (collision.CompareTag("Eye"))
         {
+            Destroy(collision.gameObject);
             eyeparts += 1; // Increment the parts by 1
-            Destroy(collision.gameObject); // Destroy the part prefab
             UpdatePartsUI(); // Update the parts UI display
         }
         if (collision.CompareTag("Core"))
         {
-            coreparts += 1;
             Destroy(collision.gameObject);
+            coreparts += 1;
             UpdatePartsUI();
         }
-        else if (collision.CompareTag("Merchant"))
+        if (collision.CompareTag("Merchant"))
         {
             canInteract = true;
         }
@@ -188,8 +188,7 @@ public class PlayerController : MonoBehaviour
     {
         if (partsUI != null)
         {
-            partsUI.UpdateMoneyDisplay(eyeparts * 4); // Set the money value in the UI
-            partsUI.UpdateMoneyDisplay(coreparts * 6);
+            partsUI.CashOutParts(eyeparts, coreparts);
         }
         eyeparts = 0; // Set the parts value to 0
         coreparts = 0;
