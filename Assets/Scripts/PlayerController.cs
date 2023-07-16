@@ -146,17 +146,17 @@ public class PlayerController : MonoBehaviour
     {
         if (collision.CompareTag("Eye"))
         {
+            Destroy(collision.gameObject);
             eyeparts += 1; // Increment the parts by 1
-            Destroy(collision.gameObject); // Destroy the part prefab
             UpdatePartsUI(); // Update the parts UI display
         }
         if (collision.CompareTag("Core"))
         {
-            coreparts += 1;
             Destroy(collision.gameObject);
+            coreparts += 1;
             UpdatePartsUI();
         }
-        else if (collision.CompareTag("Merchant"))
+        if (collision.CompareTag("Merchant"))
         {
             canInteract = true;
         }
