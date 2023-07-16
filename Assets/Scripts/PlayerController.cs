@@ -24,14 +24,16 @@ public class PlayerController : MonoBehaviour
     public float deathDelay = 2f;
 
     private bool canInteract = false;
-    private bool isInteracting = false;
+    public bool isInteracting = false;
 
     private Parts partsUI;
+    private UpgradeMenuManager upgradeMenuManager;
 
     // Start is called before the first frame update
     private void Start()
     {
         partsUI = FindObjectOfType<Parts>();
+        upgradeMenuManager = FindObjectOfType<UpgradeMenuManager>();
     }
 
     // Update is called once per frame
@@ -39,7 +41,7 @@ public class PlayerController : MonoBehaviour
     {
         horizontal = Input.GetAxisRaw("Horizontal");
 
-        if (Input.GetButtonDown("Jump") && IsGrounded())
+        if (Input.GetButtonDown("Jump") && IsGrounded() && !isInteracting)
         {
             rb.velocity = new Vector2(rb.velocity.x, jumpingPower);
             // clamp max negative velocity to -jumpingPower
@@ -49,7 +51,7 @@ public class PlayerController : MonoBehaviour
             }
         }
 
-        if (Input.GetButtonUp("Jump") && rb.velocity.y > 0f)
+        if (Input.GetButtonUp("Jump") && rb.velocity.y > 0f && !isInteracting)
         {
             rb.velocity = new Vector2(rb.velocity.x, rb.velocity.y * 0.5f);
         }
@@ -70,7 +72,8 @@ public class PlayerController : MonoBehaviour
         if (Input.GetKeyDown(KeyCode.E) && canInteract && !isInteracting)
         {
             isInteracting = true;
-            ResetParts();
+            //ResetParts();
+            ShowUpgradeMenu();
         }
     }
 
@@ -115,6 +118,10 @@ public class PlayerController : MonoBehaviour
 
     private void Flip()
     {
+        if (isInteracting)
+        {
+            return;
+        }
         if (isFacingRight && horizontal < 0f || !isFacingRight && horizontal > 0f)
         {
             isFacingRight = !isFacingRight;
@@ -125,6 +132,10 @@ public class PlayerController : MonoBehaviour
     }
     private void UpdateFireballShot()
     {
+        if (isInteracting)
+        {
+              return;
+        }
         shootTimer -= Time.deltaTime;
 
         if (shootTimer <= 0 && Input.GetKey(KeyCode.Mouse0))
@@ -188,7 +199,7 @@ public class PlayerController : MonoBehaviour
         }
     }
 
-    private void ResetParts()
+    public void ResetParts()
     {
         if (partsUI != null)
         {
@@ -200,6 +211,14 @@ public class PlayerController : MonoBehaviour
         isInteracting = false; // Reset the interaction flag
     }
 
+    private void ShowUpgradeMenu()
+    {
+        if (upgradeMenuManager != null)
+        {
+            upgradeMenuManager.Activate();
+        }
+    }
+
     private void UpdatePartsUI()
     {
         Parts partsUI = FindObjectOfType<Parts>();
@@ -207,6 +226,12 @@ public class PlayerController : MonoBehaviour
         {
             partsUI.UpdateEyesDisplay(eyeparts); 
             partsUI.UpdateCoreDisplay(coreparts);
+        }
+        UpgradeMenuManager upgradeMenu = FindObjectOfType<UpgradeMenuManager>();
+        if (upgradeMenu != null)
+        {
+            upgradeMenu.UpdatePartsText(eyeparts, coreparts);
+            upgradeMenu.UpdateMoneyText(partsUI.moneyValue);
         }
     }
 }
