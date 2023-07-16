@@ -5,7 +5,12 @@ using UnityEngine;
 public class EnemyController : MonoBehaviour
 {
     //public float detectionRadius = 5f;
-    public float moveSpeed = 3f;
+    public float moveSpeed = 2.0f;
+    public float moveDistance = 2.0f;
+    public bool isFacingRight = true;
+    private bool isAtEdge = false;
+
+    private Vector2 startingPosition;
     //private bool playerDetected = false;
 
     private Transform player;
@@ -18,32 +23,31 @@ public class EnemyController : MonoBehaviour
 
     public GameObject partPrefab;
 
+    private void Start()
+    {
+        startingPosition = transform.position;
+    }
+
     private void Update()
     {
-        //if (!playerDetected)
-        //{
-        //    float distance = Vector2.Distance(transform.position, player.position);
-         //   if (distance < detectionRadius)
-        //    {
-        //        playerDetected = true;
-        //    }
-        //}
+        float direction = isFacingRight ? 1.0f : -1.0f;
 
-        //if (playerDetected)
-        //{
-            // Check if the enemy is grounded
-        //    isGrounded = Physics2D.OverlapCircle(groundCheck.position, 0.2f, groundLayer);
+        transform.Translate(Vector2.right * direction * moveSpeed * Time.deltaTime);
 
-            // Move towards the player or perform any other actions
-        //    Vector2 direction = player.position - transform.position;
-        //    rb.velocity = new Vector2(direction.normalized.x * moveSpeed, rb.velocity.y);
+        RaycastHit2D hit = Physics2D.Raycast(transform.position, Vector2.down, 1.0f);
+        if (hit.collider == null)
+        {
+            isAtEdge = true;
+        }
+        else
+        {
+            isAtEdge = false;
+        }
 
-            // Flip the enemy sprite based on the movement direction
-        //    if (direction.x < 0)
-        //        transform.localScale = new Vector3(-1, 1, 1);
-         //   else if (direction.x > 0)
-         //       transform.localScale = new Vector3(1, 1, 1);
-        //}
+        if (Mathf.Abs(transform.position.x - startingPosition.x) >= moveDistance || isAtEdge)
+        {
+            isFacingRight = !isFacingRight;
+        }
     }
 
     private void OnTriggerEnter2D(Collider2D collision)

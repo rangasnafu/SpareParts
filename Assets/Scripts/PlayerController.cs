@@ -1,6 +1,7 @@
 using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
+using UnityEngine.SceneManagement;
 
 public class PlayerController : MonoBehaviour
 {
@@ -20,7 +21,7 @@ public class PlayerController : MonoBehaviour
     public float shootInterval;
     private float shootTimer;
 
-    public float deathDelay;
+    public float deathDelay = 2f;
 
     private bool canInteract = false;
     private bool isInteracting = false;
@@ -160,6 +161,19 @@ public class PlayerController : MonoBehaviour
         {
             canInteract = true;
         }
+
+        if (collision.gameObject.CompareTag("SideCollision"))
+        {
+            rb.simulated = false;
+
+            StartCoroutine(ReloadSceneAfterDelay(deathDelay));
+        }
+    }
+
+    private IEnumerator ReloadSceneAfterDelay(float delay)
+    {
+        yield return new WaitForSeconds(delay);
+        SceneManager.LoadScene(SceneManager.GetActiveScene().name);
     }
 
     private void OnTriggerExit2D(Collider2D collision)
