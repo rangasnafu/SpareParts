@@ -164,17 +164,21 @@ public class PlayerController : MonoBehaviour
 
         if (collision.gameObject.CompareTag("SideCollision"))
         {
-            rb.simulated = false;
+            //rb.simulated = false;
 
-            StartCoroutine(ReloadSceneAfterDelay(deathDelay));
+            //StartCoroutine(ReloadSceneAfterDelay(deathDelay));
+
+            PlayerHearts playerHearts = GetComponent<PlayerHearts>();
+
+            playerHearts.LoseAHeart();
         }
     }
 
-    private IEnumerator ReloadSceneAfterDelay(float delay)
-    {
-        yield return new WaitForSeconds(delay);
-        SceneManager.LoadScene(SceneManager.GetActiveScene().name);
-    }
+    //private IEnumerator ReloadSceneAfterDelay(float delay)
+    //{
+    //    yield return new WaitForSeconds(delay);
+    //    SceneManager.LoadScene(SceneManager.GetActiveScene().name);
+    //}
 
     private void OnTriggerExit2D(Collider2D collision)
     {
