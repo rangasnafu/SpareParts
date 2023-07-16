@@ -3,7 +3,7 @@ using System.Collections.Generic;
 using UnityEngine;
 using UnityEngine.SceneManagement;
 
-public class TitleManager : MonoBehaviour
+public class TitleManager2 : MonoBehaviour
 {
     public void LoadGame()
     {
@@ -12,6 +12,6 @@ public class TitleManager : MonoBehaviour
 
     public void LoadTutorial()
     {
-        SceneManager.LoadScene("Tutorial"); 
+        SceneManager.LoadScene("Tutorial");
     }
 }
