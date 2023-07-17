@@ -1,5 +1,7 @@
 using System.Collections;
 using System.Collections.Generic;
+using TMPro;
+using UnityEditor.Rendering.LookDev;
 using UnityEngine;
 using UnityEngine.SceneManagement;
 
@@ -42,6 +44,9 @@ public class PlayerController : MonoBehaviour
 
     public Transform objectSpawnPointRight;
     public Transform objectSpawnPointLeft;
+
+    public TextMeshProUGUI catText;
+    public GameObject catUI;
 
     // Start is called before the first frame update
     private void Start()
@@ -145,6 +150,7 @@ public class PlayerController : MonoBehaviour
 
     private void SpawnObject(GameObject gameObject)
     {
+        catsOwned -= 1;
         if (isFacingRight)
         {
             Instantiate(gameObject, objectSpawnPointLeft.position, Quaternion.identity);
@@ -153,6 +159,15 @@ public class PlayerController : MonoBehaviour
         {
             Instantiate(gameObject, objectSpawnPointRight.position, Quaternion.identity);
         }
+        if (catsOwned <= 0)
+        {
+            HidePreviewObject();
+        }
+    }
+
+    public void AddCatCurrency()
+    {
+        return;
     }
 
     public void ShowPreviewObject(Sprite sprite)
@@ -166,6 +181,19 @@ public class PlayerController : MonoBehaviour
     {
         objectPreview.SetActive(false);
         isShowingObject = false;
+    }
+
+    private void UpdateCatUI()
+    {
+        if (catsOwned > 0)
+        {
+            catUI.SetActive(true);
+            catText.text = catsOwned.ToString();
+        }
+        else
+        {
+            catUI.SetActive(false);
+        }
     }
 
     private void Flip()
