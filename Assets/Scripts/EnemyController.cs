@@ -25,6 +25,8 @@ public class EnemyController : MonoBehaviour
 
     public GameObject explosionEffect;
 
+    private bool spawnedPart = false;
+
     private void Start()
     {
         startingPosition = transform.position;
@@ -54,17 +56,21 @@ public class EnemyController : MonoBehaviour
 
     private void OnTriggerEnter2D(Collider2D collision)
     {
-        if (collision.gameObject.CompareTag("Fireball"))
+        if (!spawnedPart)
         {
-            // Spawn the part prefab at the enemy's position
-            Instantiate(partPrefab, transform.position, Quaternion.identity);
-            Instantiate(explosionEffect, transform.position, Quaternion.identity);
+            if (collision.gameObject.CompareTag("Fireball"))
+            {
+                spawnedPart = true;
+                // Spawn the part prefab at the enemy's position
+                Instantiate(partPrefab, transform.position, Quaternion.identity);
+                Instantiate(explosionEffect, transform.position, Quaternion.identity);
 
-            // Destroy the enemy
-            Destroy(gameObject);
+                // Destroy the enemy
+                Destroy(gameObject);
 
-            // Destroy the bullet
-            Destroy(collision.gameObject);
+                // Destroy the bullet
+                Destroy(collision.gameObject);
+            }
         }
     }
 }
