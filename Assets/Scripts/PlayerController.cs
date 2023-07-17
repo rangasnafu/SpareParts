@@ -25,12 +25,23 @@ public class PlayerController : MonoBehaviour
 
     private bool canInteract = false;
     public bool isInteracting = false;
+    private bool isShowingObject = false;
 
     private Parts partsUI;
     private UpgradeMenuManager upgradeMenuManager;
 
     public GameObject shopPromptText;
     public GameObject fireTutorial;
+    public GameObject catPrefab;
+
+    public int catsOwned = 0;
+
+    public Sprite catSprite;
+
+    public GameObject objectPreview;
+
+    public Transform objectSpawnPointRight;
+    public Transform objectSpawnPointLeft;
 
     // Start is called before the first frame update
     private void Start()
@@ -79,6 +90,18 @@ public class PlayerController : MonoBehaviour
             //ResetParts();
             ShowUpgradeMenu();
         }
+
+        if (isShowingObject)
+        {
+            if (isFacingRight)
+            {
+                objectPreview.transform.position = objectSpawnPointRight.position;
+            }
+            else
+            {
+                objectPreview.transform.position = objectSpawnPointLeft.position;
+            }
+        }
     }
 
     private void FixedUpdate()
@@ -118,6 +141,31 @@ public class PlayerController : MonoBehaviour
     {
         return Physics2D.OverlapCircle(groundCheck.position, 0.2f, groundLayer);
 
+    }
+
+    private void SpawnObject(GameObject gameObject)
+    {
+        if (isFacingRight)
+        {
+            Instantiate(gameObject, objectSpawnPointLeft.position, Quaternion.identity);
+        }
+        else
+        {
+            Instantiate(gameObject, objectSpawnPointRight.position, Quaternion.identity);
+        }
+    }
+
+    public void ShowPreviewObject(Sprite sprite)
+    {
+        objectPreview.SetActive(true);
+        objectPreview.GetComponent<SpriteRenderer>().sprite = sprite;
+        isShowingObject = true;
+    }
+
+    public void HidePreviewObject()
+    {
+        objectPreview.SetActive(false);
+        isShowingObject = false;
     }
 
     private void Flip()
