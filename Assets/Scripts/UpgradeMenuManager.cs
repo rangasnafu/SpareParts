@@ -11,6 +11,9 @@ public class UpgradeMenuManager : MonoBehaviour
     public TextMeshProUGUI moneyText;
     public TextMeshProUGUI valueText;
 
+    public TextMeshProUGUI catQuantityText;
+    public TextMeshProUGUI wizardQuantityText;
+
     private PlayerController playerController;
 
     private int value = 0;
@@ -102,6 +105,8 @@ public class UpgradeMenuManager : MonoBehaviour
             {
                 wizardButton.interactable = false;
             }
+            catQuantityText.text = "You have: " + playerController.catsOwned.ToString();
+            wizardQuantityText.text = "You have: " + playerController.wizardsCollected.ToString();
         }
     }
 

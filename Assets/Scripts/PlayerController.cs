@@ -58,6 +58,7 @@ public class PlayerController : MonoBehaviour
 
     public SpriteRenderer fireballKey;
     public SpriteRenderer fireballIcon;
+    public SpriteRenderer catKey;
 
     // Start is called before the first frame update
     private void Start()
@@ -319,6 +320,7 @@ public class PlayerController : MonoBehaviour
 
             fireballIcon.color = new Color(1f, 1f, 1f, 1f);
             fireballKey.color = new Color(1f, 1f, 1f, 1f);
+            catKey.color = new Color(1f, 1f, 1f, 0.5f);
         }
 
         //if (collision.CompareTag("FireballDetection"))
@@ -346,6 +348,7 @@ public class PlayerController : MonoBehaviour
             canShootFireball = false;
             fireballIcon.color = new Color(1f, 1f, 1f, 0.5f);
             fireballKey.color = new Color(1f, 1f, 1f, 0.5f);
+            catKey.color = new Color(1f, 1f, 1f, 1f);
         }
     }
 
