@@ -19,6 +19,7 @@ public class EnemyController : MonoBehaviour
     public Transform groundCheck;
     public LayerMask groundLayer;
 
+
     //private bool isGrounded = false;
 
     public GameObject partPrefab;
@@ -26,6 +27,12 @@ public class EnemyController : MonoBehaviour
     public GameObject explosionEffect;
 
     private bool spawnedPart = false;
+
+    //public Transform playerDetection;
+    //public float shootTimer;
+    //public float bulletSpeed;
+    //public Transform bulletSpawnPoint;
+    //public GameObject bulletPrefab;
 
     private void Start()
     {
@@ -39,14 +46,6 @@ public class EnemyController : MonoBehaviour
         transform.Translate(Vector2.right * direction * moveSpeed * Time.deltaTime);
 
         RaycastHit2D hit = Physics2D.Raycast(transform.position, Vector2.down, 1.0f);
-        //if (hit.collider == null)
-        //{
-        //    isAtEdge = true;
-        //}
-        //else
-        //{
-        //    isAtEdge = false;
-        //}
 
         if (Mathf.Abs(transform.position.x - startingPosition.x) >= moveDistance || isAtEdge)
         {
@@ -72,5 +71,21 @@ public class EnemyController : MonoBehaviour
                 Destroy(collision.gameObject);
             }
         }
+
+        //if (collision.CompareTag("Player"))
+        //{
+         //   if (shootTimer <= 0f)
+        //    {
+        //        ShootBullet();
+        //        shootTimer = 2f; // Reset the shoot timer
+        //    }
+        //}
     }
+
+    //private void ShootBullet()
+    //{
+    //    Vector2 shootDirection = isFacingRight ? Vector2.right : Vector2.left;
+    //    GameObject bullet = Instantiate(bulletPrefab, bulletSpawnPoint.position, Quaternion.identity);
+    //    bullet.GetComponent<Rigidbody2D>().velocity = shootDirection * bulletSpeed;
+    //}
 }
