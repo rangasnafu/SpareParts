@@ -49,6 +49,9 @@ public class PlayerController : MonoBehaviour
     public TextMeshProUGUI catText;
     public GameObject catUI;
 
+    public TextMeshProUGUI wizardCount;
+    public int wizardsCollected = 0;
+
     public PlayerSoundManager soundManager;
 
     private bool canShootFireball = false;
@@ -373,5 +376,11 @@ public class PlayerController : MonoBehaviour
             upgradeMenu.UpdatePartsText(eyeparts, coreparts);
             upgradeMenu.UpdateMoneyText(partsUI.moneyValue);
         }
+    }
+
+    public void AddWizards()
+    {
+        wizardsCollected += 1;
+        wizardCount.text = wizardsCollected.ToString();
     }
 }

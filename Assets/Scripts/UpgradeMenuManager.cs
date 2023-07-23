@@ -20,6 +20,7 @@ public class UpgradeMenuManager : MonoBehaviour
     public GameObject upgradeMenu;
 
     public Button catButton;
+    public Button wizardButton;
 
     // Start is called before the first frame update
     void Start()
@@ -93,6 +94,14 @@ public class UpgradeMenuManager : MonoBehaviour
             {
                 catButton.interactable = false;
             }
+            if (playerController.partsUI.moneyValue >= 10)
+            {
+                wizardButton.interactable = true;
+            }
+            else
+            {
+                wizardButton.interactable = false;
+            }
         }
     }
 
@@ -108,6 +117,23 @@ public class UpgradeMenuManager : MonoBehaviour
                 playerController.catText.text = playerController.catsOwned.ToString();
                 playerController.catUI.SetActive(true);
                 playerController.objectPreview.SetActive(true);
+            }
+        }
+        RefreshButtons();
+        UpdateMoneyText(playerController.partsUI.moneyValue);
+        playerController.UpdateCatUI();
+        playerController.UpdatePartsUI();
+    }
+
+    public void PurchaseWizardItem()
+    {
+        if (playerController != null)
+        {
+            if (playerController.partsUI.moneyValue >= 10)
+            {
+                playerController.partsUI.moneyValue -= 10;
+                playerController.partsUI.UpdateMoneyDisplay(playerController.partsUI.moneyValue);
+                playerController.AddWizards();
             }
         }
         RefreshButtons();
