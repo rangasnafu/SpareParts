@@ -48,6 +48,8 @@ public class PlayerController : MonoBehaviour
     public TextMeshProUGUI catText;
     public GameObject catUI;
 
+    public PlayerSoundManager soundManager;
+
     private bool canShootFireball = false;
 
     // Start is called before the first frame update
@@ -71,11 +73,14 @@ public class PlayerController : MonoBehaviour
             {
                 rb.velocity = new Vector2(rb.velocity.x, -jumpingPower);
             }
+
+            soundManager.PlayerJumpSound();
         }
 
         if (Input.GetButtonUp("Jump") && rb.velocity.y > 0f && !isInteracting)
         {
             rb.velocity = new Vector2(rb.velocity.x, rb.velocity.y * 0.5f);
+            soundManager.PlayerJumpSound();
         }
 
         Flip();
@@ -284,6 +289,8 @@ public class PlayerController : MonoBehaviour
             PlayerHearts playerHearts = GetComponent<PlayerHearts>();
 
             playerHearts.LoseAHeart();
+
+            soundManager.PlayerHurtSound();
         }
 
         if (collision.CompareTag("FireballDetection"))
