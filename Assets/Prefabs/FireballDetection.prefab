@@ -10,6 +10,7 @@ GameObject:
   m_Component:
   - component: {fileID: 176621494864092283}
   - component: {fileID: 3036396561572854185}
+  - component: {fileID: 6064403325249658524}
   m_Layer: 0
   m_Name: FireballDetection
   m_TagString: FireballDetection
@@ -56,5 +57,26 @@ BoxCollider2D:
     adaptiveTiling: 0
   m_AutoTiling: 0
   serializedVersion: 2
-  m_Size: {x: 1, y: 1}
+  m_Size: {x: 6, y: 1}
   m_EdgeRadius: 0
+--- !u!114 &6064403325249658524
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 3718173282169471594}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 686ebffd06738e244ad0935ed7ac2b84, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  moveSpeed: 2
+  moveDistance: 2
+  isFacingRight: 1
+  groundCheck: {fileID: 0}
+  groundLayer:
+    serializedVersion: 2
+    m_Bits: 0
+  partPrefab: {fileID: 0}
+  explosionEffect: {fileID: 0}

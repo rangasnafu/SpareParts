@@ -65,6 +65,8 @@ public class PlayerController : MonoBehaviour
         partsUI = FindObjectOfType<Parts>();
         upgradeMenuManager = FindObjectOfType<UpgradeMenuManager>();
         shopPromptText.SetActive(false);
+
+        soundManager = GetComponent<PlayerSoundManager>();
     }
 
     // Update is called once per frame
@@ -81,12 +83,16 @@ public class PlayerController : MonoBehaviour
                 rb.velocity = new Vector2(rb.velocity.x, -jumpingPower);
             }
 
-            soundManager.PlayerJumpSound();
+            //soundManager.PlayerJumpSound();
         }
 
         if (Input.GetButtonUp("Jump") && rb.velocity.y > 0f && !isInteracting)
         {
             rb.velocity = new Vector2(rb.velocity.x, rb.velocity.y * 0.5f);
+        }
+
+        if (Input.GetKeyDown(KeyCode.Space) && IsGrounded())
+        {
             soundManager.PlayerJumpSound();
         }
 
@@ -247,6 +253,7 @@ public class PlayerController : MonoBehaviour
         {
             shootTimer = shootInterval;
             ShootFireball();
+            soundManager.PlayerShootSound();
         }
     }
 

@@ -34,6 +34,10 @@ public class EnemyController : MonoBehaviour
     //public Transform bulletSpawnPoint;
     //public GameObject bulletPrefab;
 
+    public Animator animator;
+    //public AudioClip enemyDeathAudio;
+    //public float deathDelay = 2.0f;
+
     private void Start()
     {
         startingPosition = transform.position;
@@ -69,8 +73,18 @@ public class EnemyController : MonoBehaviour
 
                 // Destroy the bullet
                 Destroy(collision.gameObject);
+
+                //AudioSource audioSource = GetComponent<AudioSource>();
+                //audioSource.PlayOneShot(enemyDeathAudio);
+
+                moveSpeed = 0.0f;
             }
         }
+
+        //if (collision.gameObject.CompareTag("Player"))
+        //{
+        //    moveSpeed = 0.0f;
+        //}
 
         //if (collision.CompareTag("Player"))
         //{

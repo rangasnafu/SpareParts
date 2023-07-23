@@ -37,6 +37,11 @@ public class MoveFireball : MonoBehaviour
             Debug.Log("Bullet collided with Bullet Destroyer");
             Destroy(gameObject);
         }
+
+        if (other.gameObject.CompareTag("Enemy"))
+        {
+            Destroy(gameObject);
+        }
     }
 
     private void OnCollisionEnter2D(Collision2D collision)
