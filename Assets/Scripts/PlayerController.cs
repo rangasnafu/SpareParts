@@ -268,6 +268,11 @@ public class PlayerController : MonoBehaviour
 
             playerHearts.LoseAHeart();
         }
+
+        //if (collision.CompareTag("FireballDetection"))
+        //{
+        //    UpdateFireballShot();
+        //}
     }
 
     //private IEnumerator ReloadSceneAfterDelay(float delay)

@@ -15,6 +15,7 @@ TagManager:
   - Merchant
   - Core
   - Eye
+  - FireballDetection
   layers:
   - Default
   - TransparentFX
