@@ -2,6 +2,7 @@ using System.Collections;
 using System.Collections.Generic;
 using TMPro;
 using UnityEngine;
+using UnityEngine.UI;
 
 public class UpgradeMenuManager : MonoBehaviour
 {
@@ -17,6 +18,8 @@ public class UpgradeMenuManager : MonoBehaviour
     public bool isActive = false;
 
     public GameObject upgradeMenu;
+
+    public Button catButton;
 
     // Start is called before the first frame update
     void Start()
@@ -42,6 +45,7 @@ public class UpgradeMenuManager : MonoBehaviour
     public void UpdateMoneyText(int money)
     {
         moneyText.text = "$ " + money.ToString();
+        RefreshButtons();
     }
 
     public void CashOut()
@@ -50,6 +54,7 @@ public class UpgradeMenuManager : MonoBehaviour
         {
               playerController.ResetParts();
         }
+        RefreshButtons();
     }
 
     public void Activate()
@@ -58,13 +63,56 @@ public class UpgradeMenuManager : MonoBehaviour
         playerController.isInteracting = true;
         upgradeMenu.SetActive(true);
         Time.timeScale = 0f;
+        RefreshButtons();
     }
 
     public void Deactivate()
     {
         isActive = false;
-        playerController.isInteracting = false;
         upgradeMenu.SetActive(false);
         Time.timeScale = 1f;
+        RefreshButtons();
+        playerController.isInteracting = true;
+        Invoke("DelayedPlayerControl", 0.1f);
+    }
+
+    private void DelayedPlayerControl()
+    {
+        playerController.isInteracting = false;
+    }
+
+    public void RefreshButtons()
+    {
+        if (playerController != null)
+        {
+            if (playerController.partsUI.moneyValue >= 5)
+            {
+                catButton.interactable = true;
+            }
+            else
+            {
+                catButton.interactable = false;
+            }
+        }
+    }
+
+    public void PurchaseCatItem()
+    {
+        if (playerController != null)
+        {
+            if (playerController.partsUI.moneyValue >= 5)
+            {
+                playerController.partsUI.moneyValue -= 5;
+                playerController.partsUI.UpdateMoneyDisplay(playerController.partsUI.moneyValue);
+                playerController.catsOwned += 1;
+                playerController.catText.text = playerController.catsOwned.ToString();
+                playerController.catUI.SetActive(true);
+                playerController.objectPreview.SetActive(true);
+            }
+        }
+        RefreshButtons();
+        UpdateMoneyText(playerController.partsUI.moneyValue);
+        playerController.UpdateCatUI();
+        playerController.UpdatePartsUI();
     }
 }

@@ -1,6 +1,7 @@
 using System.Collections;
 using System.Collections.Generic;
 using TMPro;
+using Unity.VisualScripting;
 using UnityEditor.Rendering.LookDev;
 using UnityEngine;
 using UnityEngine.SceneManagement;
@@ -29,7 +30,7 @@ public class PlayerController : MonoBehaviour
     public bool isInteracting = false;
     private bool isShowingObject = false;
 
-    private Parts partsUI;
+    public Parts partsUI;
     private UpgradeMenuManager upgradeMenuManager;
 
     public GameObject shopPromptText;
@@ -51,6 +52,9 @@ public class PlayerController : MonoBehaviour
     public PlayerSoundManager soundManager;
 
     private bool canShootFireball = false;
+
+    public SpriteRenderer fireballKey;
+    public SpriteRenderer fireballIcon;
 
     // Start is called before the first frame update
     private void Start()
@@ -115,9 +119,21 @@ public class PlayerController : MonoBehaviour
             }
         }
 
-        if (Input.GetButtonDown("Fire1") && canShootFireball)
+        //if (Input.GetButtonDown("Fire1") && canShootFireball)
+        //{
+        //    ShootFireball();
+        //}
+
+
+        if (Input.GetKeyDown(KeyCode.Mouse0) && !canShootFireball)
         {
-            ShootFireball();
+            if (isInteracting == false)
+            {
+                if (catsOwned > 0)
+                {
+                    SpawnObject(catPrefab);
+                }
+            }
         }
     }
 
@@ -163,18 +179,12 @@ public class PlayerController : MonoBehaviour
     private void SpawnObject(GameObject gameObject)
     {
         catsOwned -= 1;
-        if (isFacingRight)
-        {
-            Instantiate(gameObject, objectSpawnPointLeft.position, Quaternion.identity);
-        }
-        else
-        {
-            Instantiate(gameObject, objectSpawnPointRight.position, Quaternion.identity);
-        }
+        Instantiate(gameObject, objectSpawnPointRight.position, Quaternion.identity);
         if (catsOwned <= 0)
         {
             HidePreviewObject();
         }
+        UpdateCatUI();
     }
 
     public void AddCatCurrency()
@@ -195,7 +205,7 @@ public class PlayerController : MonoBehaviour
         isShowingObject = false;
     }
 
-    private void UpdateCatUI()
+    public void UpdateCatUI()
     {
         if (catsOwned > 0)
         {
@@ -230,7 +240,7 @@ public class PlayerController : MonoBehaviour
         }
         shootTimer -= Time.deltaTime;
 
-        if (shootTimer <= 0 && Input.GetKey(KeyCode.Mouse0))
+        if (shootTimer <= 0 && Input.GetKey(KeyCode.Mouse0)&& canShootFireball)
         {
             shootTimer = shootInterval;
             ShootFireball();
@@ -246,7 +256,7 @@ public class PlayerController : MonoBehaviour
         //    Destroy(fireTutorial);
         //}
 
-        if (canShootFireball)
+        if (canShootFireball && !isInteracting)
         {
             Instantiate(fireballPrefab, fireballSpawnPoint.position, Quaternion.identity);
             //instantiate means to spawn, quaternion means rotation
@@ -296,6 +306,9 @@ public class PlayerController : MonoBehaviour
         if (collision.CompareTag("FireballDetection"))
         {
             canShootFireball = true;
+
+            fireballIcon.color = new Color(1f, 1f, 1f, 1f);
+            fireballKey.color = new Color(1f, 1f, 1f, 1f);
         }
 
         //if (collision.CompareTag("FireballDetection"))
@@ -321,6 +334,8 @@ public class PlayerController : MonoBehaviour
         if (collision.CompareTag("FireballDetection"))
         {
             canShootFireball = false;
+            fireballIcon.color = new Color(1f, 1f, 1f, 0.5f);
+            fireballKey.color = new Color(1f, 1f, 1f, 0.5f);
         }
     }
 
@@ -333,7 +348,7 @@ public class PlayerController : MonoBehaviour
         eyeparts = 0; // Set the parts value to 0
         coreparts = 0;
         UpdatePartsUI(); // Update the parts UI display
-        isInteracting = false; // Reset the interaction flag
+        //isInteracting = false; // Reset the interaction flag
     }
 
     private void ShowUpgradeMenu()
@@ -344,7 +359,7 @@ public class PlayerController : MonoBehaviour
         }
     }
 
-    private void UpdatePartsUI()
+    public void UpdatePartsUI()
     {
         Parts partsUI = FindObjectOfType<Parts>();
         if (partsUI != null)

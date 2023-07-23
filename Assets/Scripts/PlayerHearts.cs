@@ -49,6 +49,7 @@ public class PlayerHearts : MonoBehaviour
         if (currentHearts <=0)
         {
             Time.timeScale = 0f;
+            FindObjectOfType<PlayerController>().isInteracting = true;
             gameOverUI.SetActive(true);
 
             PlayerPrefs.DeleteAll();
