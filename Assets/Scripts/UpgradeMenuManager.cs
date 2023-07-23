@@ -129,9 +129,9 @@ public class UpgradeMenuManager : MonoBehaviour
     {
         if (playerController != null)
         {
-            if (playerController.partsUI.moneyValue >= 10)
+            if (playerController.partsUI.moneyValue >= 40)
             {
-                playerController.partsUI.moneyValue -= 10;
+                playerController.partsUI.moneyValue -= 40;
                 playerController.partsUI.UpdateMoneyDisplay(playerController.partsUI.moneyValue);
                 playerController.AddWizards();
             }
