@@ -48,6 +48,8 @@ public class PlayerController : MonoBehaviour
     public TextMeshProUGUI catText;
     public GameObject catUI;
 
+    private bool canShootFireball = false;
+
     // Start is called before the first frame update
     private void Start()
     {
@@ -106,6 +108,11 @@ public class PlayerController : MonoBehaviour
             {
                 objectPreview.transform.position = objectSpawnPointLeft.position;
             }
+        }
+
+        if (Input.GetButtonDown("Fire1") && canShootFireball)
+        {
+            ShootFireball();
         }
     }
 
@@ -227,11 +234,21 @@ public class PlayerController : MonoBehaviour
 
     private void ShootFireball()
     {
-        Instantiate(fireballPrefab, fireballSpawnPoint.position, Quaternion.identity);
+        //Instantiate(fireballPrefab, fireballSpawnPoint.position, Quaternion.identity);
         //instantiate means to spawn, quaternion means rotation
-        if (fireTutorial != null)
+        //if (fireTutorial != null)
+        //{
+        //    Destroy(fireTutorial);
+        //}
+
+        if (canShootFireball)
         {
-            Destroy(fireTutorial);
+            Instantiate(fireballPrefab, fireballSpawnPoint.position, Quaternion.identity);
+            //instantiate means to spawn, quaternion means rotation
+            if (fireTutorial != null)
+            {
+                Destroy(fireTutorial);
+            }
         }
     }
 
@@ -269,6 +286,11 @@ public class PlayerController : MonoBehaviour
             playerHearts.LoseAHeart();
         }
 
+        if (collision.CompareTag("FireballDetection"))
+        {
+            canShootFireball = true;
+        }
+
         //if (collision.CompareTag("FireballDetection"))
         //{
         //    UpdateFireballShot();
@@ -287,6 +309,11 @@ public class PlayerController : MonoBehaviour
         {
             canInteract = false;
             shopPromptText.SetActive(false);
+        }
+
+        if (collision.CompareTag("FireballDetection"))
+        {
+            canShootFireball = false;
         }
     }
 
