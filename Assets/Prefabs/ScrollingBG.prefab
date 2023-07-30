@@ -46,6 +46,7 @@ GameObject:
   - component: {fileID: 8282425156057592663}
   - component: {fileID: 8282425156057592662}
   - component: {fileID: 8282425156057592657}
+  - component: {fileID: 2263164597912083735}
   m_Layer: 0
   m_Name: Quad (2)
   m_TagString: Untagged
@@ -133,6 +134,17 @@ MonoBehaviour:
   img: {fileID: 8282425156057592662}
   x: 0.01
   y: 0
+--- !u!210 &2263164597912083735
+SortingGroup:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 8282425156057592656}
+  m_Enabled: 1
+  m_SortingLayerID: 0
+  m_SortingLayer: 0
+  m_SortingOrder: -10
 --- !u!1 &8282425157173524954
 GameObject:
   m_ObjectHideFlags: 0
@@ -145,6 +157,7 @@ GameObject:
   - component: {fileID: 8282425157173524952}
   - component: {fileID: 8282425157173524955}
   - component: {fileID: 8282425157173524958}
+  - component: {fileID: 6654551803009666313}
   m_Layer: 0
   m_Name: Quad
   m_TagString: Untagged
@@ -232,6 +245,17 @@ MonoBehaviour:
   img: {fileID: 8282425157173524955}
   x: 0.04
   y: 0
+--- !u!210 &6654551803009666313
+SortingGroup:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 8282425157173524954}
+  m_Enabled: 1
+  m_SortingLayerID: 0
+  m_SortingLayer: 0
+  m_SortingOrder: -8
 --- !u!1 &8282425157366094602
 GameObject:
   m_ObjectHideFlags: 0
@@ -244,6 +268,7 @@ GameObject:
   - component: {fileID: 8282425157366094601}
   - component: {fileID: 8282425157366094600}
   - component: {fileID: 8282425157366094603}
+  - component: {fileID: 5278612519674247937}
   m_Layer: 0
   m_Name: Quad (1)
   m_TagString: Untagged
@@ -331,3 +356,14 @@ MonoBehaviour:
   img: {fileID: 8282425157366094600}
   x: 0.02
   y: 0
+--- !u!210 &5278612519674247937
+SortingGroup:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 8282425157366094602}
+  m_Enabled: 1
+  m_SortingLayerID: 0
+  m_SortingLayer: 0
+  m_SortingOrder: -9
