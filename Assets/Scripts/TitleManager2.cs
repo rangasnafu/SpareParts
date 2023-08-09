@@ -15,4 +15,9 @@ public class TitleManager2 : MonoBehaviour
     {
         SceneManager.LoadScene("Tutorial");
     }
+
+    public void SkipStory()
+    {
+        SceneManager.LoadScene("SampleScene (1)");
+    }
 }
