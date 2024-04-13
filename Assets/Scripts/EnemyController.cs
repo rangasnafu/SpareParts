@@ -64,6 +64,10 @@ public class EnemyController : MonoBehaviour
             if (collision.gameObject.CompareTag("Fireball"))
             {
                 spawnedPart = true;
+                if (partPrefab == null)
+                {
+                    return;
+                }
                 // Spawn the part prefab at the enemy's position
                 Instantiate(partPrefab, transform.position, Quaternion.identity);
                 Instantiate(explosionEffect, transform.position, Quaternion.identity);

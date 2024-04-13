@@ -28,14 +28,8 @@ public class UpgradeMenuManager : MonoBehaviour
     // Start is called before the first frame update
     void Start()
     {
-        playerController = FindObjectOfType<PlayerController>();
+        playerController = FindAnyObjectByType<PlayerController>();
         //Activate();
-    }
-
-    // Update is called once per frame
-    void Update()
-    {
-        
     }
 
     public void UpdatePartsText(int eyeParts, int coreParts)

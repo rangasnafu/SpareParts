@@ -1,7 +1,6 @@
 using System.Collections;
 using System.Collections.Generic;
 using TMPro;
-using Unity.VisualScripting;
 using UnityEngine;
 using UnityEngine.SceneManagement;
 
@@ -62,8 +61,8 @@ public class PlayerController : MonoBehaviour
     // Start is called before the first frame update
     private void Start()
     {
-        partsUI = FindObjectOfType<Parts>();
-        upgradeMenuManager = FindObjectOfType<UpgradeMenuManager>();
+        partsUI = FindAnyObjectByType<Parts>();
+        upgradeMenuManager = FindAnyObjectByType<UpgradeMenuManager>();
         shopPromptText.SetActive(false);
 
         soundManager = GetComponent<PlayerSoundManager>();
@@ -373,13 +372,13 @@ public class PlayerController : MonoBehaviour
 
     public void UpdatePartsUI()
     {
-        Parts partsUI = FindObjectOfType<Parts>();
+        Parts partsUI = FindAnyObjectByType<Parts>();
         if (partsUI != null)
         {
             partsUI.UpdateEyesDisplay(eyeparts); 
             partsUI.UpdateCoreDisplay(coreparts);
         }
-        UpgradeMenuManager upgradeMenu = FindObjectOfType<UpgradeMenuManager>();
+        UpgradeMenuManager upgradeMenu = FindAnyObjectByType<UpgradeMenuManager>();
         if (upgradeMenu != null)
         {
             upgradeMenu.UpdatePartsText(eyeparts, coreparts);
